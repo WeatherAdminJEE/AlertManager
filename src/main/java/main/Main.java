@@ -6,7 +6,8 @@ import crud.facade.IUniversalDao;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
-import java.sql.Date;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
 
@@ -18,7 +19,7 @@ public class Main {
         log.debug("Starting alert Manager");
         System.out.println(crudEntityFacade.getAllSensor().size());
         MainAlertManager alertManager = new MainAlertManager();
-        alertManager.run();
+        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(alertManager, 0, 60L, TimeUnit.SECONDS);
 
     }
 
